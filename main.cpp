@@ -30,7 +30,6 @@ void markNonPrimes(bool* num, int size, int start, int step)
 
 int main(void)
 {
-    clock_t program_start = clock();
     // Initialize variables and arrays
     int size = 100000000;
     long long sumprime = 0; 
@@ -72,24 +71,14 @@ int main(void)
         }
     }
     
-    clock_t program_end = clock();
-    double elapsed_time = (double) (program_end - program_start);
     double parallel_time = (double) (end - begin) / CLOCKS_PER_SEC;
-
-    double P = parallel_time / elapsed_time;
-
-    int num_proccessors = THREAD_COUNT;
-    double speedup = 1.0 / ((1- P) + (P / num_proccessors));
-
 
     ofstream Outputfile;
     Outputfile.open("primes.txt");
-    cout << speedup << " " << P;
-    Outputfile << "Elapsed Time: " << elapsed_time << " " << count << " " << sumprime << " ";
+    Outputfile << "Elapsed Time: " << parallel_time << " " << count << " " << sumprime << " ";
     for(int i = 0; i < 10; i++)
     {
         Outputfile << top[i] << " ";
-        cout << top[i] << " ";
     }
 
     Outputfile.close();
